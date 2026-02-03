@@ -51,6 +51,7 @@ namespace Platformer.GameModes
                 // Movement settings
                 player.maxSpeed = gameModeConfig.playerSpeed;
                 player.jumpTakeOffSpeed = gameModeConfig.playerJumpSpeed;
+                player.immunityDuration = gameModeConfig.playerImmunityDuration;
 
                 // Weapon settings
                 player.bulletDamage = gameModeConfig.bulletDamage;

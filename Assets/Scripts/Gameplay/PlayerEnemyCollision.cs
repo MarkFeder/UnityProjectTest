@@ -46,6 +46,12 @@ namespace Platformer.Gameplay
             }
             else
             {
+                // Skip damage if player is immune
+                if (player.IsImmune)
+                {
+                    return;
+                }
+
                 var playerHealth = player.health;
                 if (playerHealth != null)
                 {
@@ -56,6 +62,8 @@ namespace Platformer.Gameplay
                     }
                     else
                     {
+                        // Activate immunity after taking damage (but not dying)
+                        player.ActivateImmunity();
                         // Play hurt audio when player takes damage but survives
                         if (player.audioSource && player.ouchAudio)
                             player.audioSource.PlayOneShot(player.ouchAudio);
