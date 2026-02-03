@@ -34,6 +34,26 @@ namespace Platformer.Mechanics
         public Health health;
         public bool controlEnabled = true;
 
+        /// <summary>
+        /// Duration of immunity after taking damage (in seconds).
+        /// </summary>
+        public float immunityDuration = 1f;
+
+        float immunityEndTime;
+
+        /// <summary>
+        /// Returns true if the player is currently immune to damage.
+        /// </summary>
+        public bool IsImmune => Time.time < immunityEndTime;
+
+        /// <summary>
+        /// Activates damage immunity for the configured duration.
+        /// </summary>
+        public void ActivateImmunity()
+        {
+            immunityEndTime = Time.time + immunityDuration;
+        }
+
         bool jump;
         Vector2 move;
         SpriteRenderer spriteRenderer;

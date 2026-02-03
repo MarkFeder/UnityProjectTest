@@ -46,33 +46,7 @@ namespace Platformer.Gameplay
             }
             else
             {
-                // Skip damage if player is immune
-                if (player.IsImmune)
-                {
-                    return;
-                }
-
-                var playerHealth = player.health;
-                if (playerHealth != null)
-                {
-                    playerHealth.Decrement(enemy.damage);
-                    if (!playerHealth.IsAlive)
-                    {
-                        Schedule<PlayerDeath>();
-                    }
-                    else
-                    {
-                        // Activate immunity after taking damage (but not dying)
-                        player.ActivateImmunity();
-                        // Play hurt audio feedback
-                        if (player.audioSource && player.ouchAudio)
-                            player.audioSource.PlayOneShot(player.ouchAudio);
-                    }
-                }
-                else
-                {
-                    Schedule<PlayerDeath>();
-                }
+                Schedule<PlayerDeath>();
             }
         }
     }

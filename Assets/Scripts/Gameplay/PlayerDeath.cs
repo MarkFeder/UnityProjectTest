@@ -17,12 +17,9 @@ namespace Platformer.Gameplay
         public override void Execute()
         {
             var player = model.player;
-            // Check if death has already been processed (using animator state instead of health
-            // since health may already be 0 when this event fires from the damage system)
-            if (!player.animator.GetBool("dead"))
+            if (player.health.IsAlive)
             {
-                if (player.health.IsAlive)
-                    player.health.Die();
+                player.health.Die();
                 model.virtualCamera.m_Follow = null;
                 model.virtualCamera.m_LookAt = null;
                 // player.collider.enabled = false;
