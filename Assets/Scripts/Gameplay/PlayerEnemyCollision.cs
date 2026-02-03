@@ -54,6 +54,12 @@ namespace Platformer.Gameplay
                     {
                         Schedule<PlayerDeath>();
                     }
+                    else
+                    {
+                        // Play hurt audio when player takes damage but survives
+                        if (player.audioSource && player.ouchAudio)
+                            player.audioSource.PlayOneShot(player.ouchAudio);
+                    }
                 }
                 else
                 {
