@@ -15,6 +15,11 @@ namespace Platformer.Mechanics
         public PatrolPath path;
         public AudioClip ouch;
 
+        /// <summary>
+        /// Amount of damage this enemy deals to the player on collision.
+        /// </summary>
+        public int damage = 1;
+
         internal PatrolPath.Mover mover;
         internal AnimationController control;
         internal Collider2D _collider;
