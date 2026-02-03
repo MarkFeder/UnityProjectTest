@@ -31,12 +31,22 @@ namespace Platformer.Mechanics
         }
 
         /// <summary>
-        /// Decrement the HP of the entity. Will trigger a HealthIsZero event when
+        /// Decrement the HP of the entity by 1. Will trigger a HealthIsZero event when
         /// current HP reaches 0.
         /// </summary>
         public void Decrement()
         {
-            currentHP = Mathf.Clamp(currentHP - 1, 0, maxHP);
+            Decrement(1);
+        }
+
+        /// <summary>
+        /// Decrement the HP of the entity by a specified amount. Will trigger a HealthIsZero event when
+        /// current HP reaches 0.
+        /// </summary>
+        /// <param name="amount">Amount of damage to apply</param>
+        public void Decrement(int amount)
+        {
+            currentHP = Mathf.Clamp(currentHP - amount, 0, maxHP);
             if (currentHP == 0)
             {
                 var ev = Schedule<HealthIsZero>();
@@ -50,6 +60,14 @@ namespace Platformer.Mechanics
         public void Die()
         {
             while (currentHP > 0) Decrement();
+        }
+
+        /// <summary>
+        /// Restore HP to maximum.
+        /// </summary>
+        public void Respawn()
+        {
+            currentHP = maxHP;
         }
 
         void Awake()
