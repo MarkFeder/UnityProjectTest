@@ -29,6 +29,10 @@ namespace Platformer.GameModes
         [Tooltip("Enable to use the spawn position override")]
         public bool useSpawnPositionOverride = false;
 
+        [Header("Weapon Settings")]
+        [Tooltip("Damage dealt by player bullets")]
+        public int bulletDamage = 1;
+
         [Header("Game Modifiers")]
         [Tooltip("Global jump height modifier")]
         public float jumpModifier = 1.5f;

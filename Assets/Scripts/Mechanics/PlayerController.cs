@@ -17,6 +17,14 @@ namespace Platformer.Mechanics
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
+        public AudioClip shootAudio;
+
+        [Header("Weapon Settings")]
+        [Tooltip("Bullet prefab to instantiate when firing")]
+        public GameObject bulletPrefab;
+
+        [Tooltip("Damage dealt by each bullet")]
+        public int bulletDamage = 1;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -83,6 +91,12 @@ namespace Platformer.Mechanics
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
                 }
+
+                // Handle shooting
+                if (Input.GetButtonUp("Fire1"))
+                {
+                    Fire();
+                }
             }
             else
             {
@@ -90,6 +104,34 @@ namespace Platformer.Mechanics
             }
             UpdateJumpState();
             base.Update();
+        }
+
+        /// <summary>
+        /// Fires a bullet in the direction the player is facing.
+        /// </summary>
+        void Fire()
+        {
+            if (bulletPrefab == null)
+                return;
+
+            // Determine direction based on sprite flip
+            float direction = spriteRenderer.flipX ? -1f : 1f;
+
+            // Spawn bullet slightly in front of the player
+            Vector3 spawnOffset = new Vector3(direction * 0.5f, 0, 0);
+            Vector3 spawnPosition = transform.position + spawnOffset;
+
+            GameObject bulletObj = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+            Bullet bullet = bulletObj.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bullet.damage = bulletDamage;
+                bullet.Initialize(direction);
+            }
+
+            // Play shoot audio
+            if (audioSource && shootAudio)
+                audioSource.PlayOneShot(shootAudio);
         }
 
         void UpdateJumpState()

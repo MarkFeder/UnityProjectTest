@@ -51,6 +51,9 @@ namespace Platformer.GameModes
                 // Movement settings
                 player.maxSpeed = gameModeConfig.playerSpeed;
                 player.jumpTakeOffSpeed = gameModeConfig.playerJumpSpeed;
+
+                // Weapon settings
+                player.bulletDamage = gameModeConfig.bulletDamage;
             }
 
             // Apply spawn position override
